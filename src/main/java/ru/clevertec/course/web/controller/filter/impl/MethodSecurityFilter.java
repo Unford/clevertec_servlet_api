@@ -22,6 +22,7 @@ public class MethodSecurityFilter implements Filter {
     public void init(FilterConfig filterConfig) throws ServletException {
         securityConfiguration = (SecurityConfiguration)
                 filterConfig.getServletContext().getAttribute(ApplicationAttribute.Context.SECURITY_CONFIGURATION);
+
     }
 
     @Override
@@ -31,9 +32,10 @@ public class MethodSecurityFilter implements Filter {
         Set<Role> roles = (Set<Role>) req.getSession().getAttribute(ApplicationAttribute.Session.USER_ROLES);
 
         forbiddenMethods.forEach(securityRule -> {
-                    if (securityRule.getMethod().equals(req.getMethod()) && securityRule.getRoles().stream()
-                            .noneMatch(sr -> roles.stream().anyMatch(role -> role.getName().equals(sr)))){
-                        throw new  AccessDeniedException(req.getMethod() + " method is forbidden for your roles: "
+                    if (securityRule.getMethod().equals(req.getMethod()) &&
+                            securityRule.getRoles().stream().noneMatch(sr ->
+                                    roles.stream().anyMatch(role -> role.getName().equals(sr)))) {
+                        throw new AccessDeniedException(req.getMethod() + " method is forbidden for your roles: "
                                 + roles.stream().map(Role::getName).collect(Collectors.joining(", ")));
                     }
                 }

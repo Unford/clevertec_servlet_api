@@ -2,9 +2,6 @@ package ru.clevertec.course.web.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
-
-import java.util.Objects;
 
 @Data
 @AllArgsConstructor

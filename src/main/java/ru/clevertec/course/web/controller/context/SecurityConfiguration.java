@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 
 @Getter
@@ -21,7 +20,8 @@ public  class SecurityConfiguration {
     public List<SecurityRule> findForbiddenMethods(HttpServletRequest request) {
         String servletPath = request.getServletPath();
         Map<String, ? extends ServletRegistration> servletRegistrations = servletContext.getServletRegistrations();
-        String registration = servletRegistrations.entrySet().stream()
+
+        return servletRegistrations.entrySet().stream()
                 .sorted(Comparator.comparing(entry -> entry.getValue().getMappings().stream()
                         .filter(s -> servletPath.matches(s.replace("*", ".+")))
                         .map(String::length)
@@ -30,9 +30,7 @@ public  class SecurityConfiguration {
                 )
                 .map(Map.Entry::getKey)
                 .findFirst()
-                .orElse("");
-
-        return Optional.ofNullable(servletSecurityRegistrations.get(registration))
+                .map(s -> servletSecurityRegistrations.get(s))
                 .orElseGet(List::of);
     }
 
