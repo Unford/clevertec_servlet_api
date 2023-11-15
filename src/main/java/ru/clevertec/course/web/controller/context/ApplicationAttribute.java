@@ -5,6 +5,7 @@ public final class ApplicationAttribute {
     }
 
     public static final class Context {
+
         private Context() {
         }
 
@@ -12,6 +13,8 @@ public final class ApplicationAttribute {
         public static final String ROLE_SERVICE = "role_service";
         public static final String GSON = "gson";
         public static final String SECURITY_CONFIGURATION = "security_configuration";
+        public static final String CONTROLLER_CONFIGURATION = "controller_configuration";
+
 
     }
 

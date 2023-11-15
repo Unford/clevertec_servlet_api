@@ -1,2 +1,3 @@
 ru.clevertec.course.web.controller.context.OrderedWebFilterContainerInitializer
 ru.clevertec.course.web.controller.context.SecurityContainerInitializer
+ru.clevertec.course.web.front.context.ControllerContainerInitializer
